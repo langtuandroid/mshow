@@ -1,10 +1,7 @@
-package com.example.entity;
+package com.hdc.mshow.model;
 
 public class Sms {
-
 	public String message;
-	public String mo;
-	public String serviceCode;
 
 	public String getMessage() {
 		return message;
@@ -30,4 +27,6 @@ public class Sms {
 		this.serviceCode = serviceCode;
 	}
 
+	public String mo;
+	public String serviceCode;
 }
