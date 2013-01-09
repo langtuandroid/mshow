@@ -143,7 +143,8 @@ public class SplashActvity extends Activity implements Runnable {
 	// TODO check connect Internet
 	private void checkConnectInternet() {
 		ConnectivityManager connMgr = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-		if (connMgr.getActiveNetworkInfo() != null && connMgr.getActiveNetworkInfo().isAvailable()
+		if (connMgr.getActiveNetworkInfo() != null
+				&& connMgr.getActiveNetworkInfo().isAvailable()
 				&& connMgr.getActiveNetworkInfo().isConnected()) {
 			isConnect = true;
 		} else {
@@ -177,6 +178,9 @@ public class SplashActvity extends Activity implements Runnable {
 		// TODO get sms
 		// ServiceSMS.instance.getSMS();
 
+		// TODO get list albums
+		ServiceSMS.instance.getAll_Albums();
+
 		mHandler.sendEmptyMessage(-1);
 	}
 
@@ -185,10 +189,10 @@ public class SplashActvity extends Activity implements Runnable {
 			waitting.dismiss();
 
 			// TODO ListActivity
-			// Intent intent = new Intent(SplashActvity.this,
-			// ListSmsKute.class);
-			// startActivity(intent);
-			// finish();
+			Intent intent = new Intent(SplashActvity.this,
+					ListAlbumActivity.class);
+			startActivity(intent);
+			finish();
 
 		};
 	};

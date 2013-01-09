@@ -221,15 +221,15 @@ public class ServiceSMS extends Service {
 				album.setSrc(j.getString("src"));
 
 				// TODO get Bitmap from Url
-				Bitmap b = null;
-				try {
-					b = DownloadImage.instance.getImage(album.getSrc());
-				} catch (Exception ex) {
-					ex.printStackTrace();
-					b = null;
-				}
-				if (b != null)
-					album.setImg(b);
+//				Bitmap b = null;
+//				try {
+//					b = DownloadImage.instance.getImage(album.getSrc());
+//				} catch (Exception ex) {
+//					ex.printStackTrace();
+//					b = null;
+//				}
+//				if (b != null)
+//					album.setImg(b);
 			} catch (JSONException e) {
 				e.printStackTrace();
 			} finally {
