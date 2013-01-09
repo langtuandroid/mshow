@@ -1,4 +1,4 @@
-package com.example.ultilities;
+package com.hdc.mshow.ultilities;
 
 import java.io.BufferedReader;
 import java.io.DataInputStream;
@@ -15,8 +15,6 @@ import java.util.ArrayList;
 import android.app.Activity;
 import android.content.Context;
 import android.content.ContextWrapper;
-
-
 
 public class FileManager {
 
@@ -52,26 +50,6 @@ public class FileManager {
 		}
 	}
 
-	public static void saveFTime(Context instance, String ftime, String mfile) {
-		FileOutputStream fos = null;
-		DataOutputStream dos;
-		try {
-			ContextWrapper cw = new ContextWrapper(
-					instance.getApplicationContext());
-			File directory = cw.getDir("mytime", Context.MODE_PRIVATE);
-			File file = new File(directory, mfile);
-			if (file.exists()) {
-				file.delete();
-			}
-			file.createNewFile();
-			fos = new FileOutputStream(file);
-			dos = new DataOutputStream(fos);
-			dos.writeUTF(ftime);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
-	
 	// load userID
 	public static String loadUserAndPass(Activity instance, String name) {
 		FileInputStream fis = null;
@@ -96,29 +74,6 @@ public class FileManager {
 		return userID;
 	}
 
-	public static String loadFtime(Activity instance, String name) {
-		FileInputStream fis = null;
-		DataInputStream dis;
-		String ftime = "";
-		try {
-			ContextWrapper cw = new ContextWrapper(
-					instance.getApplicationContext());
-			File directory = cw.getDir("mytime", Context.MODE_PRIVATE);
-			File file = new File(directory, name);
-			if (file.exists()) {
-				fis = new FileInputStream(file);
-				dis = new DataInputStream(fis);
-				ftime = dis.readUTF();
-			}
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		} catch (IOException f1) {
-			f1.printStackTrace();
-		}
-
-		return ftime;
-	}
-	
 	// load file text in external storage
 	public static ArrayList<String> loadfileExternalStorage(Activity instance,
 			int file) {
