@@ -33,8 +33,7 @@
         android:layout_width="fill_parent"
         android:layout_height="50dp"
         android:layout_below="@+id/aclistcat_nameapp"
-        android:background="@drawable/top_mid"
-        android:visibility="gone" >
+        android:background="@drawable/top_mid" android:visibility="visible">
 
         <RelativeLayout
             android:layout_width="wrap_content"

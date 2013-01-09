@@ -1,4 +1,4 @@
-package com.hdc.mshow;
+package com.hdc.mshow.customize;
 
 import android.content.Context;
 import android.widget.LinearLayout;
