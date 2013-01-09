@@ -1,0 +1,10 @@
+<resources>
+
+    <string name="app_name">mShow</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="menu_settings">Settings</string>
+    <string name="title_activity_list_cat">mShow</string>
+	<string name="adv">Xem miễn phí kích hoạt dịch vụ <br/>
+	    				Phí dịch vụ 15.000 đ <br/>
+	    				 	@ cliphot</string>
+</resources>

@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
+
+    <Button
+        android:id="@+id/list_btpage_btprevious"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/number3" />
+
+    <Button
+        android:id="@+id/list_btpage_btmany1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:layout_toRightOf="@+id/list_btpage_btprevious"
+        android:background="@drawable/number2"
+        android:text="..."
+        android:textColor="#ffffff" />
+
+    <Button
+        android:id="@+id/list_btpage_bt1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:layout_toRightOf="@+id/list_btpage_btmany1"
+        android:background="@drawable/number1"
+        android:text="1"
+        android:textColor="#ffffff" />
+
+    <Button
+        android:id="@+id/list_btpage_bt2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:layout_toRightOf="@+id/list_btpage_bt1"
+        android:background="@drawable/number1"
+        android:text="2"
+        android:textColor="#ffffff" />
+
+    <Button
+        android:id="@+id/list_btpage_bt3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:layout_toRightOf="@+id/list_btpage_bt2"
+        android:background="@drawable/number1"
+        android:text="3"
+        android:textColor="#ffffff" />
+
+    <Button
+        android:id="@+id/list_btpage_btmany2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:layout_toRightOf="@+id/list_btpage_bt3"
+        android:background="@drawable/number2"
+        android:text="..."
+        android:textColor="#ffffff" />
+
+    <Button
+        android:id="@+id/list_btpage_btnext"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:layout_toRightOf="@+id/list_btpage_btmany2"
+        android:background="@drawable/number4" />
+
+</RelativeLayout>

@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:id="@+id/footer_layoutbtpage"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/background" >
+
+        <RelativeLayout
+            android:id="@+id/footer_layoutallbt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true" 
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="30dp">
+
+            <Button
+                android:id="@+id/footer_btPrevious"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="5dp"
+                android:background="@drawable/number3"
+                android:visibility="gone" />
+
+            <Button
+                android:id="@+id/footer_btcontinuesb"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/footer_btPrevious"
+                android:background="@drawable/number5"
+                android:visibility="gone" />
+
+            <Button
+                android:id="@+id/footer_btp1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_toRightOf="@+id/footer_btcontinuesb"
+                android:background="@drawable/number1"
+                android:text="1"
+                android:textColor="#ffffff" />
+
+            <Button
+                android:id="@+id/footer_btp2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_toRightOf="@+id/footer_btp1"
+                android:background="@drawable/number2"
+                android:text="2"
+                android:textColor="#ffffff" />
+
+            <Button
+                android:id="@+id/footer_btp3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_toRightOf="@+id/footer_btp2"
+                android:background="@drawable/number2"
+                android:text="3"
+                android:textColor="#ffffff" />
+
+            <Button
+                android:id="@+id/footer_btcontinuesn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_toRightOf="@+id/footer_btp3"
+                android:background="@drawable/number5" />
+
+            <Button
+                android:id="@+id/footer_btNext"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_toRightOf="@+id/footer_btcontinuesn"
+                android:background="@drawable/number4" />
+        </RelativeLayout>
+    </RelativeLayout>
+
+    <ImageView
+        android:id="@+id/footer_advertise"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/top_mid"
+        android:gravity="center" />
+
+    <RelativeLayout
+        android:id="@+id/footer_layoutbottom"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bottom" >
+
+        <TextView
+            android:id="@+id/footer_t1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="5dp"
+            android:text="Xem miễn phí kích hoạt dịch vụ"
+            android:textColor="#9d87bb" />
+
+        <TextView
+            android:id="@+id/footer_t2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/footer_t1"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="5dp"
+            android:text="Phí dịch vụ 15.000 đ"
+            android:textColor="#9d87bb" />
+
+        <TextView
+            android:id="@+id/footer_t3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/footer_t2"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="5dp"
+            android:text="cliphot"
+            android:textColor="#9d87bb" />
+    </RelativeLayout>
+
+</LinearLayout>
