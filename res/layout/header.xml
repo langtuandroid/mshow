@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
+
+    <TextView
+        android:id="@+id/header_title"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/background"
+        android:gravity="center"
+        android:textColor="#FFFFFF"
+        android:visibility="gone" />
+
+    <RelativeLayout
+        android:id="@+id/header_contentlayout"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/header_title"
+        android:background="@drawable/background" >
+
+        <Button
+            android:id="@+id/header_btPrevious"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:background="@drawable/next3"
+            android:visibility="invisible"/>
+
+        <Gallery
+            android:id="@+id/header_gallery"
+            android:layout_width="290dp"
+            android:layout_height="370dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="2dp" />
+
+        <Button
+            android:id="@+id/header_btNext"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:background="@drawable/next4"
+            android:visibility="invisible" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/header_lyoKhac"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/header_contentlayout"
+        android:layout_marginBottom="20dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/anh_khac"
+        android:visibility="invisible" />
+
+</RelativeLayout>

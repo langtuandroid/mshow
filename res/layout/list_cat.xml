@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:id="@+id/listcat_layoutcontent"
+        android:layout_width="fill_parent"
+        android:layout_height="116dp"
+        android:layout_marginBottom="5dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginTop="5dp"
+        android:background="@drawable/contentrow" >
+
+        <ImageView
+            android:id="@+id/listcat_imgcat"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_alignParentBottom="true"
+            android:layout_marginLeft="10dp"
+            android:background="@drawable/khunganh"
+            android:paddingBottom="10dp"
+            android:paddingLeft="11dp"
+            android:paddingRight="11dp"
+            android:paddingTop="10dp" />
+
+        <TextView
+            android:id="@+id/listcat_tvCat"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_toRightOf="@+id/listcat_imgcat"
+            android:layout_marginBottom="20dp"
+            android:lines="2"
+            android:gravity="center_vertical"
+            android:text="ABC" 
+            android:textColor="#999999"/> 
+
+        <TextView
+            android:id="@+id/listcat_tvView"
+            android:layout_width="wrap_content"
+            android:layout_height="20dp"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@+id/listcat_imgcat"
+            android:text="View"
+            android:textColor="#9d87bb" />
+
+        <TextView
+            android:id="@+id/listcat_tvCount"
+            android:layout_width="wrap_content"
+            android:layout_height="20dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginBottom="10dp"
+            android:layout_marginRight="10dp"
+            android:text="Số lượng"
+            android:textColor="#9d87bb" />
+    </RelativeLayout>
+
+</RelativeLayout>

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?><RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@drawable/background"
+    android:orientation="vertical" >
+
+   
+    <RelativeLayout
+        android:id="@+id/activation_layoutdialog"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:background="@drawable/box" >
+
+        <TextView
+            android:id="@+id/activation_tvactive"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="30dp"
+            android:text="Bạn có muốn xem ảnh không" />
+
+        <Button
+            android:id="@+id/activation_btOk"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/activation_tvactive"
+            android:layout_marginLeft="40dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/kichhoat" 
+            android:text="Kích Hoạt"
+            android:textColor="#ffffff"
+            android:textSize="15dp"/>
+
+        <Button
+            android:id="@+id/activation_btCancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/activation_tvactive"
+            android:layout_marginRight="50dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/huy" />
+    </RelativeLayout>
+
+</RelativeLayout>

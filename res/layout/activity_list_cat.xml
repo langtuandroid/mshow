@@ -1,0 +1,82 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@drawable/background" >
+
+    <RelativeLayout
+        android:id="@+id/aclistcat_nameapp"
+        android:layout_width="fill_parent"
+        android:layout_height="48dp"
+        android:background="@drawable/title_new" >
+
+        <Button
+            android:id="@+id/aclistcat_btspinnermenu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:background="@drawable/menu_new" />
+
+        <Button
+            android:id="@+id/aclistcat_btmnsearch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="5dp"
+            android:layout_toLeftOf="@+id/aclistcat_btspinnermenu"
+            android:background="@drawable/search_new" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/aclistcat_layoutsearch"
+        android:layout_width="fill_parent"
+        android:layout_height="50dp"
+        android:layout_below="@+id/aclistcat_nameapp"
+        android:background="@drawable/top_mid"
+        android:visibility="gone" >
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="29dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_toLeftOf="@+id/aclistcat_btsearch" >
+
+            <EditText
+                android:id="@+id/aclistcat_editsearch"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_centerHorizontal="true"
+                android:background="@drawable/box_content"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp"
+                android:singleLine="true" />
+        </RelativeLayout>
+
+        <Button
+            android:id="@+id/aclistcat_btsearch"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/search_icon" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/aclistcat_layoutcontent"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/aclistcat_layoutsearch"
+        android:background="@drawable/background" >
+
+        <ListView
+            android:id="@+id/aclistcat_listcat"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:fadingEdge="none" />
+    </RelativeLayout>
+
+</RelativeLayout>
