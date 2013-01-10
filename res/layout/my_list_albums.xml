@@ -42,7 +42,10 @@
     <ListView
         android:id="@+id/list_album"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
+        android:layout_height="wrap_content"
+        android:background="@drawable/background"
+        android:drawSelectorOnTop="true" >
+
     </ListView>
 
 </LinearLayout>
