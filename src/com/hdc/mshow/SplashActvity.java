@@ -9,7 +9,6 @@ import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.os.Handler;
-import android.widget.Toast;
 
 import com.hdc.mshow.dialog.Dialog;
 import com.hdc.mshow.dialog.Dialog_Waitting;
@@ -180,6 +179,9 @@ public class SplashActvity extends Activity implements Runnable {
 
 		// TODO get list albums
 		ServiceSMS.instance.getAll_Albums();
+		
+		//TODO get category
+		ServiceSMS.instance.getCategorys();
 
 		mHandler.sendEmptyMessage(-1);
 	}

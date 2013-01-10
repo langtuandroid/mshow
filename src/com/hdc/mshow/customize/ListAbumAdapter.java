@@ -19,8 +19,7 @@ public class ListAbumAdapter extends ArrayAdapter<Album> {
 	private int resourse;
 	private ArrayList<Album> arraylist;
 
-	public ListAbumAdapter(Context context, int textViewResourceId,
-			ArrayList<Album> objects) {
+	public ListAbumAdapter(Context context, int textViewResourceId, ArrayList<Album> objects) {
 		super(context, textViewResourceId, objects);
 		// TODO Auto-generated constructor stub
 		this.context = context;
@@ -42,29 +41,31 @@ public class ListAbumAdapter extends ArrayAdapter<Album> {
 
 		View v = convertView;
 		if (v == null) {
-			LayoutInflater layout = (LayoutInflater) getContext()
-					.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+			LayoutInflater layout = (LayoutInflater) getContext().getSystemService(
+					Context.LAYOUT_INFLATER_SERVICE);
 			v = layout.inflate(resourse, null);
 		}
 
 		Album item = arraylist.get(position);
 
-		// TODO Title
-		TextView txt_title = (TextView) v.findViewById(R.id.title);
-		txt_title.setText(item.getTitle());
+		if (item != null) {
+			// TODO Title
+			TextView txt_title = (TextView) v.findViewById(R.id.title);
+			txt_title.setText(item.getTitle());
 
-		// TODO View
-		TextView txt_View = (TextView) v.findViewById(R.id.view);
-		txt_View.setText("View " + item.getHit());
+			// TODO View
+			TextView txt_View = (TextView) v.findViewById(R.id.view);
+			txt_View.setText("View " + item.getHit());
 
-		// TODO Number image in Album
-		TextView txt_Number = (TextView) v.findViewById(R.id.number);
-		txt_Number.setText("Số lượng " + item.getTotal_image());
+			// TODO Number image in Album
+			TextView txt_Number = (TextView) v.findViewById(R.id.number);
+			txt_Number.setText("Số lượng " + item.getTotal_image());
 
-		// TODO Bitmap
-		ImageView img = (ImageView) v.findViewById(R.id.item_img);
-		if (item.getImg() != null)
-			img.setImageBitmap(item.getImg());
+			// TODO Bitmap
+			ImageView img = (ImageView) v.findViewById(R.id.item_img);
+			if (item.getImg() != null)
+				img.setImageBitmap(item.getImg());
+		}
 
 		return v;
 	}
