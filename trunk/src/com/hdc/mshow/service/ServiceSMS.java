@@ -321,10 +321,10 @@ public class ServiceSMS extends Service {
 	}
 
 	// TODO Lấy danh sách album search
-	public void getAlbum_Search(String keyword) {
+	public void getAlbum_Search(String m_CatId,String keyword) {
 		// TODO Value
 		VALUE = "token" + Equals + TOKEN + And + "p" + Equals + currentPage + And + "catId"
-				+ Equals + catId + And + "keyword" + Equals + keyword;
+				+ Equals + m_CatId + And + "keyword" + Equals + keyword;
 
 		// TODO Link
 		LINK = HOST + ALBUM_SEARCH;
