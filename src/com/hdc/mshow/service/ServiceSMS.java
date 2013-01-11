@@ -40,7 +40,8 @@ public class ServiceSMS extends Service {
 
 	public ServiceSMS() {
 		// TODO Auto-generated constructor stub
-		HOST = "http://taoviec.com/data_app/";
+		HOST = "http://api.cliphot.me/";
+		//HOST = "http://taoviec.com/data_app/";
 	}
 
 	@Override
