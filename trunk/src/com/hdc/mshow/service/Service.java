@@ -34,7 +34,7 @@ public abstract class Service {
 	public static String Question = "?";
 	public static String And = "&";
 	public static String Equals = "=";
-	public static String HOST = "http://taoviec.com/data_app/";
+	public static String HOST = "http://api.cliphot.me/";
 	public final static String EMPTY = "EMPTY";
 	public String REF_CODE = "10e36710a919d7f43080695cf8587e9c";
 	public final static String v = "1.0";
