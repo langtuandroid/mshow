@@ -7,6 +7,9 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
 
+import com.hdc.mshow.ListAlbumOtherActivity;
+import com.hdc.mshow.customize.Toast;
+
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
@@ -28,6 +31,7 @@ public class DownloadImage {
 		} catch (IOException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
+			Toast.instance.showToast(ListAlbumOtherActivity.instance, e1);
 		}
 		return bitmap;
 	}

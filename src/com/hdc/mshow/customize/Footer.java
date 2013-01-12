@@ -44,6 +44,7 @@ public class Footer implements OnClickListener {
 	// TODO focus
 	int index_focus = 2;
 
+	
 	public Footer(Context context) {
 		// TODO Context
 		c = context;
@@ -97,7 +98,7 @@ public class Footer implements OnClickListener {
 				if (index_focus != i)
 					updateListView(caculatePage(i));
 				else
-					Toast.instance.show(c, "Bạn đang ở trang hiện tại !!!");
+					Toast.instance.show(c, "B?n �ang ? trang hi?n t?i !!!");
 			}
 		}
 	}
@@ -133,7 +134,7 @@ public class Footer implements OnClickListener {
 			index_focus = 2;
 			setColor(index_focus);
 
-			// trang đầu tiên
+			// trang �?u ti�n
 			page = 1;
 			break;
 		case 1: // Page '<'
@@ -183,7 +184,7 @@ public class Footer implements OnClickListener {
 			}
 			break;
 		case 3: // Page '2'
-			// trường hợp current Page = 1
+			// tr�?ng h?p current Page = 1
 			if (currentPage == 1) {
 				// enable 2 button |< & <
 				m_List_Button_Page[0].setVisibility(View.VISIBLE);
@@ -201,7 +202,7 @@ public class Footer implements OnClickListener {
 				setColor(index_focus);
 				page = currentPage + 1;
 			}
-			// trường hợp current page = totalPage
+			// tr�?ng h?p current page = totalPage
 			if (currentPage == totalPage) {
 				// disable 2 button > & >|
 				m_List_Button_Page[0].setVisibility(View.GONE);
@@ -290,7 +291,7 @@ public class Footer implements OnClickListener {
 			index_focus = 4;
 			setColor(index_focus);
 
-			// trang đầu tiên
+			// trang �?u ti�n
 			page = totalPage;
 
 			break;
@@ -304,13 +305,13 @@ public class Footer implements OnClickListener {
 	// TODO update listview with paging
 	private void updateListView(int page) {
 		if (!ListAlbumActivity.instance.isExcuting) {
-			// lấy dữ liệu từ Page
+			// l?y d? li?u t? Page
 			ServiceSMS.instance.currentPage = page;
 			// ServiceSMS.instance.currentPage++;
 			ServiceSMS.instance.getAlbum_Search("");
 			ListAlbumActivity.instance.updateListView();
 		} else {
-			Toast.instance.show(c, "Đang lấy dữ liệu Album .... ");
+			Toast.instance.show(c, "�ang l?y d? li?u Album .... ");
 		}
 	}
 

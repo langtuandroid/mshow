@@ -126,6 +126,7 @@ public class ServiceSMS extends Service {
 			e.printStackTrace();
 		}
 	}
+	
 
 	// TODO get data for version
 	public int getVersion() {
@@ -410,6 +411,8 @@ public class ServiceSMS extends Service {
 				JSONObject j = json.getJSONObject(i);
 				item.setId(j.getString("id").trim());
 				item.setSrc(j.getString("src").trim());
+				//Bitmap b = null;
+				//item.setImg(DownloadImage.instance.getImage(item.getSrc()));
 			} catch (JSONException e) {
 				e.printStackTrace();
 			} finally {
