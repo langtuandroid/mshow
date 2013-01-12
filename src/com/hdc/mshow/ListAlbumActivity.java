@@ -8,8 +8,10 @@ import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
+import android.view.animation.TranslateAnimation;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -41,6 +43,10 @@ public class ListAlbumActivity extends Activity {
 	//TODO Excuting ...
 	public boolean isExcuting = false;
 
+	//TODO layout list ablum
+	LinearLayout m_Layout_ListAlbum ;
+	TranslateAnimation animation;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
@@ -49,6 +55,8 @@ public class ListAlbumActivity extends Activity {
 
 		instance = this;
 
+		m_Layout_ListAlbum = (LinearLayout)findViewById(R.id.layout_list_album);
+		
 		// TODO init footer
 		footer = new Footer(this);
 		footer.instance.setVisibility(View.GONE);
@@ -78,7 +86,10 @@ public class ListAlbumActivity extends Activity {
 		m_ListView.setOnItemClickListener(new OnItemClickListener() {
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View v, int position, long id) {
-
+				animation = new TranslateAnimation(0, -250, 0, 0);
+				animation.setDuration(500);
+				animation.setFillAfter(true);				
+				m_Layout_ListAlbum.startAnimation(animation);
 			}
 		});
 	}
@@ -127,9 +138,7 @@ public class ListAlbumActivity extends Activity {
 
 					album = aa.get(i);
 					album.setImg(b);
-					
-			
-					
+													
 					publishProgress(i);
 				}
 			}

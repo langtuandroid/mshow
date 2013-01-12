@@ -55,11 +55,11 @@ public class ListAbumAdapter extends ArrayAdapter<Album> {
 
 			// TODO View
 			TextView txt_View = (TextView) v.findViewById(R.id.view);
-			txt_View.setText("View " + item.getHit());
+			txt_View.setText("View :" + item.getHit());
 
 			// TODO Number image in Album
 			TextView txt_Number = (TextView) v.findViewById(R.id.number);
-			txt_Number.setText("Số lượng " + item.getTotal_image());
+			txt_Number.setText("Số lượng :" + item.getTotal_image());
 
 			// TODO Bitmap
 			ImageView img = (ImageView) v.findViewById(R.id.item_img);

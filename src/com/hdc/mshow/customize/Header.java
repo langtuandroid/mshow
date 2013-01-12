@@ -91,8 +91,8 @@ public class Header extends LinearLayout {
 				// Toast.instance.show(c, "bt search main");
 
 				if (!ListAlbumActivity.instance.isExcuting) {
-					// lấy dữ liệu từ Search
-					ServiceSMS.instance.getAlbum_Search("", txt_Search.getText().toString());
+					// lấy dữ liệu từ Search					
+					ServiceSMS.instance.getAlbum_Search(txt_Search.getText().toString());
 					ListAlbumActivity.instance.updateListView();
 				} else {
 					Toast.instance.show(c, "Đang lấy dữ liệu Album .... ");
@@ -127,7 +127,8 @@ public class Header extends LinearLayout {
 
 				if (!ListAlbumActivity.instance.isExcuting) {
 					// lấy dữ liệu từ Danh mục
-					ServiceSMS.instance.getAlbum_Search(catId, "");
+					ServiceSMS.instance.catId = catId;
+					ServiceSMS.instance.getAlbum_Search("");
 					ListAlbumActivity.instance.updateListView();
 				} else {
 					Toast.instance.show(c, "Đang lấy dữ liệu Album .... ");

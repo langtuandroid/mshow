@@ -3,7 +3,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/background"
-    android:orientation="vertical" >
+    android:orientation="vertical"
+    android:id="@+id/layout_list_album">
 
     <include
         android:id="@+id/header_1"
@@ -45,7 +46,8 @@
         android:layout_height="wrap_content"
         android:background="@drawable/background"
         android:choiceMode="singleChoice"
-        android:drawSelectorOnTop="false" >
+        android:fadingEdge="none"
+        android:smoothScrollbar="true" >
 
     </ListView>
 
