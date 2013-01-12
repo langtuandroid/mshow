@@ -2,8 +2,8 @@ package com.hdc.mshow;
 
 import java.util.ArrayList;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -13,19 +13,16 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.hdc.mshow.customize.Footer;
 import com.hdc.mshow.customize.Header;
 import com.hdc.mshow.customize.ListAbumAdapter;
-import com.hdc.mshow.customize.Log;
 import com.hdc.mshow.dialog.Dialog;
 import com.hdc.mshow.dialog.Dialog_Waitting;
 import com.hdc.mshow.model.Album;
 import com.hdc.mshow.service.ServiceSMS;
 import com.hdc.mshow.ultilities.DownloadImage;
 
-@SuppressLint("NewApi")
 public class ListAlbumActivity extends Activity {
 	// TODO Instance
 	public static ListAlbumActivity instance;
@@ -39,8 +36,8 @@ public class ListAlbumActivity extends Activity {
 
 	// TODO Header
 	Header header;
-	
-	//TODO Excuting ...
+
+	// TODO Excuting ...
 	public boolean isExcuting = false;
 
 	//TODO layout list ablum
@@ -60,7 +57,7 @@ public class ListAlbumActivity extends Activity {
 		// TODO init footer
 		footer = new Footer(this);
 		footer.instance.setVisibility(View.GONE);
-		
+
 		// TODO init header
 		header = new Header(this);
 		header.initLayout();
@@ -85,11 +82,17 @@ public class ListAlbumActivity extends Activity {
 		// on click listview Item
 		m_ListView.setOnItemClickListener(new OnItemClickListener() {
 			@Override
-			public void onItemClick(AdapterView<?> arg0, View v, int position, long id) {
-				animation = new TranslateAnimation(0, -250, 0, 0);
-				animation.setDuration(500);
-				animation.setFillAfter(true);				
-				m_Layout_ListAlbum.startAnimation(animation);
+			public void onItemClick(AdapterView<?> arg0, View v, int position,
+					long id) {
+//				animation = new TranslateAnimation(0, -250, 0, 0);
+//				animation.setDuration(500);
+//				animation.setFillAfter(true);				
+//				m_Layout_ListAlbum.startAnimation(animation);
+				
+				ServiceSMS.instance.getAlbum_Item(arrayitems.get(position).getId());
+				
+				Intent intent = new Intent(instance,ListAlbumOtherActivity.class);
+				startActivity(intent);
 			}
 		});
 	}
@@ -111,15 +114,15 @@ public class ListAlbumActivity extends Activity {
 			super.onPreExecute();
 
 			isExcuting = true;
-			
+
 			w = new Dialog_Waitting(instance, 0);
 			w.show();
 
 			aa = ServiceSMS.instance.m_ListAlbums;
 
-			if (adapter != null && aa.size() > 0){
-				footer.instance.setVisibility(View.GONE);				
-				adapter.clear();				
+			if (adapter != null && aa.size() > 0) {
+				footer.instance.setVisibility(View.GONE);
+				adapter.clear();
 			}
 
 		}
@@ -150,10 +153,10 @@ public class ListAlbumActivity extends Activity {
 			// TODO Auto-generated method stub
 			super.onProgressUpdate(values);
 
-//			Log.i("id", album.getId());
-//			Log.i("name", album.getTitle());
-//			Log.i("src", album.getSrc());
-			
+			// Log.i("id", album.getId());
+			// Log.i("name", album.getTitle());
+			// Log.i("src", album.getSrc());
+
 			if (values[0] == 0)
 				w.dismiss();
 
@@ -172,10 +175,10 @@ public class ListAlbumActivity extends Activity {
 			// m_ListView.addFooterView(f.instance);
 			// Toast.makeText(ListAlbumActivity.this, "okie",
 			// Toast.LENGTH_SHORT).show();
-			
+
 			isExcuting = false;
-			
-			//footer.setVisible_Paging(View.VISIBLE);
+
+			// footer.setVisible_Paging(View.VISIBLE);
 			footer.instance.setVisibility(View.VISIBLE);
 		}
 	}
@@ -185,6 +188,8 @@ public class ListAlbumActivity extends Activity {
 		// TODO Auto-generated method stub
 		super.onBackPressed();
 		adapter.clear();
+		
+		System.exit(1);
 	}
 
 }
