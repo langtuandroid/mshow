@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="match_parent" android:layout_height="match_parent"
+	android:layout_gravity="center_vertical|center_horizontal"
+	android:gravity="center_vertical|center_horizontal">
+	<LinearLayout android:layout_height="wrap_content"
+		android:id="@+id/linearLayout1" android:layout_alignParentLeft="true"
+		android:layout_width="match_parent" android:orientation="vertical"
+		android:gravity="center"
+		android:background="@drawable/box">
+
+		<LinearLayout android:id="@+id/linearLayout4"
+			android:layout_width="match_parent" android:layout_height="match_parent">
+
+			<TextView android:id="@+id/txt_title" android:layout_width="wrap_content"
+				android:layout_height="wrap_content" android:layout_marginLeft="10dp" android:text="Kích hoạt dịch vụ" android:textStyle="normal" android:textColor="#000000" android:textSize="16dp" android:layout_marginTop="4dp" android:layout_marginBottom="6dp">
+
+			</TextView>
+		</LinearLayout>
+		<LinearLayout android:id="@+id/linearLayout3"
+			android:layout_height="match_parent" android:layout_width="match_parent"
+			android:gravity="center_vertical|center_horizontal">
+
+			<TextView android:id="@+id/txt_content"
+				android:layout_width="fill_parent" android:layout_height="fill_parent"
+				android:layout_marginBottom="10dp" android:layout_marginLeft="10dp"
+				android:layout_marginTop="10dp" android:text="Bạn có muốn mở dịch vụ không ?"
+				android:textColor="#000000" android:textSize="14dp"
+				android:textStyle="normal">
+
+			</TextView>
+		</LinearLayout>
+		<LinearLayout android:id="@+id/linearLayout2"
+			android:layout_height="match_parent" android:layout_width="match_parent"
+			android:gravity="center_horizontal">
+
+			<Button android:id="@+id/btdongy" android:layout_width="wrap_content"
+				android:layout_height="wrap_content" android:layout_marginBottom="10dp"
+				android:layout_marginRight="20dp" android:background="@drawable/kichhoat"
+				android:text="Đồng ý" android:textColor="#ffffff" android:textStyle="bold">
+			</Button>
+
+			<Button android:id="@+id/btHuy" android:layout_width="wrap_content"
+				android:layout_height="wrap_content" android:layout_marginLeft="20dp" android:background="@drawable/huy"
+				android:textStyle="bold" android:layout_marginBottom="20dp" android:text=" ">
+			</Button>
+		</LinearLayout>
+	</LinearLayout>
+</RelativeLayout>

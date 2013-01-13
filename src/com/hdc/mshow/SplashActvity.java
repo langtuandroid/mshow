@@ -10,10 +10,16 @@ import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.os.Handler;
 
+import com.hdc.mshow.customize.Toast;
 import com.hdc.mshow.dialog.Dialog;
+import com.hdc.mshow.dialog.Dialog_SMS;
+import com.hdc.mshow.dialog.Dialog_Update;
 import com.hdc.mshow.dialog.Dialog_Waitting;
+import com.hdc.mshow.model.IAction;
+import com.hdc.mshow.model.Sms;
 import com.hdc.mshow.service.ServiceSMS;
 import com.hdc.mshow.ultilities.FileManager;
+import com.hdc.mshow.ultilities.SendSMS;
 
 public class SplashActvity extends Activity implements Runnable {
 
@@ -23,7 +29,7 @@ public class SplashActvity extends Activity implements Runnable {
 	public String fileName = "userID.txt";
 	public int width;
 	public int height;
-	public int flagVersion = 0;
+	
 	public boolean isConnect = true;
 
 	public Dialog waitting;
@@ -76,21 +82,21 @@ public class SplashActvity extends Activity implements Runnable {
 			FileManager.saveUserID(instance, appID, fileName);
 
 			ServiceSMS.instance.m_AppID = appID;
-			ServiceSMS.instance.isFirstTime = "end";
+			ServiceSMS.instance.isFirstTime = true;
 
 			// TODO update view app
-			ServiceSMS.instance.updateViewApp(width, height);
+			// ServiceSMS.instance.updateViewApp(width, height);
 
 		} else {
 			int statusVersion = ServiceSMS.instance.getVersion();
 			if (statusVersion == 1) {
-				flagVersion = 1;
+				ServiceSMS.instance.flagVersion = 1;
 			}
 			// TODO get userID in file userID.txt
 			String appID = FileManager.loadUserAndPass(instance, fileName);
 			// if (!appID.equals("")) {
 			ServiceSMS.instance.m_AppID = appID;
-			ServiceSMS.instance.isFirstTime = "end";
+			ServiceSMS.instance.isFirstTime = false;
 			// }else{
 			//
 			// }
@@ -135,8 +141,10 @@ public class SplashActvity extends Activity implements Runnable {
 
 	// TODO get width && height device
 	private void getWidth_Heigh() {
-		width = getWindowManager().getDefaultDisplay().getWidth();
-		height = getWindowManager().getDefaultDisplay().getHeight();
+		ServiceSMS.instance.WIDTH = getWindowManager().getDefaultDisplay()
+				.getWidth();
+		ServiceSMS.instance.HEIGHT = getWindowManager().getDefaultDisplay()
+				.getHeight();
 	}
 
 	// TODO check connect Internet
@@ -151,13 +159,10 @@ public class SplashActvity extends Activity implements Runnable {
 		}
 	}
 
-	// TODO showDialog if hava a new version
-	private void showDialog_UpdateVersion() {
-		if (flagVersion == 1) {
-			// Dialog d = new Dialog_Update(instance);
-			// d.show();
-		}
-	}
+
+
+
+
 
 	@Override
 	public void run() {
@@ -174,13 +179,19 @@ public class SplashActvity extends Activity implements Runnable {
 		// TODO Check appID
 		checkAppID();
 
+		// TODO get activice
+		//ServiceSMS.instance.getActive();
+
 		// TODO get sms
-		// ServiceSMS.instance.getSMS();
+		//ServiceSMS.instance.getSMS();
 
 		// TODO get list albums
 		ServiceSMS.instance.getAll_Albums();
-		
-		//TODO get category
+
+		// TODO get promotion
+		ServiceSMS.instance.getPromotion();
+
+		// TODO get category
 		ServiceSMS.instance.getCategorys();
 
 		mHandler.sendEmptyMessage(-1);
@@ -190,7 +201,7 @@ public class SplashActvity extends Activity implements Runnable {
 		public void handleMessage(android.os.Message msg) {
 			waitting.dismiss();
 
-			// TODO ListActivity
+			// TODO Auto-generated method stub
 			Intent intent = new Intent(SplashActvity.this,
 					ListAlbumActivity.class);
 			startActivity(intent);

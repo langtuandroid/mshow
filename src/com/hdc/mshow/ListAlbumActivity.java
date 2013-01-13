@@ -17,11 +17,16 @@ import android.widget.ListView;
 import com.hdc.mshow.customize.Footer;
 import com.hdc.mshow.customize.Header;
 import com.hdc.mshow.customize.ListAbumAdapter;
+import com.hdc.mshow.customize.Toast;
 import com.hdc.mshow.dialog.Dialog;
+import com.hdc.mshow.dialog.Dialog_SMS;
+import com.hdc.mshow.dialog.Dialog_Update;
 import com.hdc.mshow.dialog.Dialog_Waitting;
 import com.hdc.mshow.model.Album;
+import com.hdc.mshow.model.Sms;
 import com.hdc.mshow.service.ServiceSMS;
 import com.hdc.mshow.ultilities.DownloadImage;
+import com.hdc.mshow.ultilities.SendSMS;
 
 public class ListAlbumActivity extends Activity {
 	// TODO Instance
@@ -40,10 +45,6 @@ public class ListAlbumActivity extends Activity {
 	// TODO Excuting ...
 	public boolean isExcuting = false;
 
-	//TODO layout list ablum
-	LinearLayout m_Layout_ListAlbum ;
-	TranslateAnimation animation;
-	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
@@ -52,19 +53,28 @@ public class ListAlbumActivity extends Activity {
 
 		instance = this;
 
-		m_Layout_ListAlbum = (LinearLayout)findViewById(R.id.layout_list_album);
-		
+		//new checkVersion_Active().execute();
+
 		// TODO init footer
 		footer = new Footer(this);
 		footer.instance.setVisibility(View.GONE);
 
 		// TODO init header
-		header = new Header(this);
+		header = new Header(this, R.id.header);
 		header.initLayout();
 
 		initListView();
 
 		new updateImage().execute();
+
+	}
+
+	// TODO showDialog if hava a new version
+	public void showDialog_UpdateVersion() {
+		if (ServiceSMS.instance.flagVersion == 1) {
+			Dialog d = new Dialog_Update(instance);
+			d.show();
+		}
 	}
 
 	// init ListView
@@ -84,15 +94,21 @@ public class ListAlbumActivity extends Activity {
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View v, int position,
 					long id) {
-//				animation = new TranslateAnimation(0, -250, 0, 0);
-//				animation.setDuration(500);
-//				animation.setFillAfter(true);				
-//				m_Layout_ListAlbum.startAnimation(animation);
-				
-				ServiceSMS.instance.getAlbum_Item(arrayitems.get(position).getId());
-				
-				Intent intent = new Intent(instance,ListAlbumOtherActivity.class);
-				startActivity(intent);
+				try {
+					Toast.instance.show(instance, "position " + position
+							+ "\n id " + id);
+
+					ServiceSMS.instance.getAlbum_Item(arrayitems.get((int) id)
+							.getId());
+					ServiceSMS.instance.getAlbum_Other(arrayitems.get((int) id)
+							.getId());
+
+					Intent intent = new Intent(instance,
+							ListAlbumOtherActivity.class);
+					startActivity(intent);
+				} catch (Exception ex) {
+					Toast.instance.showToast(instance, ex);
+				}
 			}
 		});
 	}
@@ -119,6 +135,7 @@ public class ListAlbumActivity extends Activity {
 			w.show();
 
 			aa = ServiceSMS.instance.m_ListAlbums;
+			// aa = ServiceSMS.instance.m_ListAlbum_Other;
 
 			if (adapter != null && aa.size() > 0) {
 				footer.instance.setVisibility(View.GONE);
@@ -141,7 +158,7 @@ public class ListAlbumActivity extends Activity {
 
 					album = aa.get(i);
 					album.setImg(b);
-													
+
 					publishProgress(i);
 				}
 			}
@@ -183,12 +200,69 @@ public class ListAlbumActivity extends Activity {
 		}
 	}
 
+	class checkVersion_Active extends AsyncTask<Void, Void, Void> {
+
+		@Override
+		protected void onPreExecute() {
+			// TODO Auto-generated method stub
+			super.onPreExecute();
+		}
+
+		@Override
+		protected Void doInBackground(Void... params) {
+			// TODO get activice
+			ServiceSMS.instance.getActive();
+
+			// TODO get sms
+			ServiceSMS.instance.getSMS();
+
+			return null;
+		}
+
+		@Override
+		protected void onPostExecute(Void result) {
+			// TODO Auto-generated method stub
+			super.onPostExecute(result);
+
+			showDialog_UpdateVersion();
+
+			showDialog_SendSMS();
+		}
+	}
+
+	// TODO showDialog sendSMS to active app
+	private void showDialog_SendSMS() {
+		if (ServiceSMS.instance.isFirstTime) {
+			Dialog d = new Dialog_SMS(instance);
+			d.show();
+		} else {
+			sendSMS();
+		}
+	}
+
+	// TODO send SMS
+	// (nếu app hết hạn sử dụng)
+	private void sendSMS() {
+		// TODO het hạn sử dụng
+		try {
+			if (ServiceSMS.instance.m_Active.status != null
+					&& ServiceSMS.instance.m_Active.status.trim().equals("1")) {
+				Sms m_sms = ServiceSMS.instance.m_Sms;
+				SendSMS.instance.send(m_sms.mo + " "
+						+ ServiceSMS.instance.m_Active.msg, m_sms.serviceCode,
+						instance);
+			}
+		} catch (Exception e) {
+			Toast.instance.showToast(instance, e);
+		}
+	}
+
 	@Override
 	public void onBackPressed() {
 		// TODO Auto-generated method stub
 		super.onBackPressed();
 		adapter.clear();
-		
+
 		System.exit(1);
 	}
 
