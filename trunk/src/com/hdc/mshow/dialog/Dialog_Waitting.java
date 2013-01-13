@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.Window;
 
 import com.hdc.mshow.R;
+import com.hdc.mshow.customize.Toast;
 
 public class Dialog_Waitting extends Dialog {
 
@@ -15,7 +16,12 @@ public class Dialog_Waitting extends Dialog {
 		// if (theme == 0)
 		// dialog.setContentView(R.layout.waitting_1);
 		// else
-			dialog.setContentView(R.layout.waitting_1);
+		try{
+			dialog.setContentView(R.layout.waitting_1);	
+		}catch(Exception ex){
+			Toast.instance.showToast(c, ex);
+		}
+		
 	}
 
 	@Override

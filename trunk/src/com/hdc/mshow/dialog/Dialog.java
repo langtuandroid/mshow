@@ -28,7 +28,7 @@ public abstract class Dialog extends android.app.Dialog {
 		context = c;
 	}
 
-	public Dialog(Context c, TextView v, CharSequence[] items) {
+	public Dialog(Context c,CharSequence[] items) {
 		super(c);		
 		context = c;
 		builder = new AlertDialog.Builder(context);		

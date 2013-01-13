@@ -8,12 +8,12 @@ import org.json.JSONObject;
 
 import android.graphics.Bitmap;
 
+import com.hdc.mshow.model.Active;
 import com.hdc.mshow.model.Album;
 import com.hdc.mshow.model.Category;
 import com.hdc.mshow.model.Item;
 import com.hdc.mshow.model.Promotion;
 import com.hdc.mshow.model.Sms;
-import com.hdc.mshow.ultilities.DownloadImage;
 
 public class ServiceSMS extends Service {
 	// TODO instance
@@ -24,7 +24,6 @@ public class ServiceSMS extends Service {
 	public String MyModel = "";
 	public final static String type_new = "3"; // mShow
 	public final static String REGISTER = "Register.php";
-	public final static String ACTIVATION = "Activation_msoi.php";
 	public final static String UPDATE_VIEW_APP = "UpdateViewApp.php";
 	public final static String VERSION = "Version.php";
 	public final static String SMS = "Sms.php";
@@ -32,16 +31,24 @@ public class ServiceSMS extends Service {
 																// sms
 	public final static String ADVERTISE = "Adv_msoi.php";
 	public final static String SMSKUTE = "SmsKuteNew.php";
+	public final static String ACTIVATION = "Activation.php";
 	public final static String SMS_SMSKUTE = "SmsSmsKute.php";
 	public String m_AppID = "";
-	public String isFirstTime = "";
+	public boolean isFirstTime = false;
 
 	public Sms m_Sms = new Sms();
+	public Active m_Active = new Active();
+
+	// TODO Width and height
+	public int WIDTH;
+	public int HEIGHT;
+	
+	public int flagVersion = 0;
 
 	public ServiceSMS() {
 		// TODO Auto-generated constructor stub
 		HOST = "http://api.cliphot.me/";
-		//HOST = "http://taoviec.com/data_app/";
+		// HOST = "http://taoviec.com/data_app/";
 	}
 
 	@Override
@@ -53,11 +60,12 @@ public class ServiceSMS extends Service {
 	// get data for appID
 	public String getAppID(int w, int h) {
 		// TODO Value for paramater Info
-		VALUE = "refCode" + Equals + REF_CODE + And + "token" + Equals + "TAoViEC@)!#2012" + And
-				+ "branch" + Equals + MyBrand + And + "handset" + Equals + MyModel + And + "w"
-				+ Equals + w + And + "h" + Equals + h + And + "midp" + Equals + midp + And
-				+ "operation_system" + Equals + "Android" + And + "type_content" + Equals
-				+ type_new;
+		VALUE = "refCode" + Equals + REF_CODE + And + "token" + Equals
+				+ "TAoViEC@)!#2012" + And + "branch" + Equals + MyBrand + And
+				+ "handset" + Equals + MyModel + And + "w" + Equals + w + And
+				+ "h" + Equals + h + And + "midp" + Equals + midp + And
+				+ "operation_system" + Equals + "Android" + And
+				+ "type_content" + Equals + type_new;
 
 		// TODO Link
 		LINK = HOST + REGISTER;
@@ -77,12 +85,13 @@ public class ServiceSMS extends Service {
 
 		return appId;
 	}
-	
+
 	// TODO get SMS for mShow
 	public void getSMS() {
 		// TODO Value
-		VALUE = "token" + Equals + TOKEN + And + "refCode" + Equals + REF_CODE + And + "appId"
-				+ Equals + m_AppID + And + "type" + Equals + type_new;
+		VALUE = "token" + Equals + TOKEN + And + "refCode" + Equals + REF_CODE
+				+ And + "appId" + Equals + m_AppID + And + "type" + Equals
+				+ type_new;
 
 		// TODO Link
 		LINK = HOST + SMS;
@@ -94,6 +103,7 @@ public class ServiceSMS extends Service {
 			JSONObject json = new JSONObject(DATA);
 			String status = json.getString("status");
 			if (status.trim().equals("1")) {
+				json = new JSONObject(json.getString("sms"));
 				m_Sms.mo = json.getString("mo");
 				m_Sms.serviceCode = json.getString("serviceCode");
 			}
@@ -104,13 +114,14 @@ public class ServiceSMS extends Service {
 	}
 
 	// TODO update View App
-	public void updateViewApp(int w, int h) {
+	public void updateViewApp() {
 		// TODO Value
-		VALUE = "appId" + Equals + m_AppID + And + "token" + Equals + "TAoViEC@)!#2012" + And
-				+ "branch" + Equals + MyBrand + And + "handset" + Equals + MyModel + And + "w"
-				+ Equals + w + And + "h" + Equals + h + And + "midp" + Equals + midp + And
-				+ "operation_system" + Equals + "Android" + And + "type_content" + Equals
-				+ type_new;
+		VALUE = "appId" + Equals + m_AppID + And + "token" + Equals
+				+ "TAoViEC@)!#2012" + And + "branch" + Equals + MyBrand + And
+				+ "handset" + Equals + MyModel + And + "w" + Equals + WIDTH
+				+ And + "h" + Equals + HEIGHT + And + "midp" + Equals + midp
+				+ And + "operation_system" + Equals + "Android" + And
+				+ "type_content" + Equals + type_new;
 
 		// TODO Link
 		LINK = HOST + UPDATE_VIEW_APP;
@@ -126,13 +137,12 @@ public class ServiceSMS extends Service {
 			e.printStackTrace();
 		}
 	}
-	
 
 	// TODO get data for version
 	public int getVersion() {
 		// TODO Value
-		VALUE = "token" + Equals + TOKEN + And + "type" + Equals + type_new + And + "v" + Equals
-				+ v;
+		VALUE = "token" + Equals + TOKEN + And + "type" + Equals + type_new
+				+ And + "v" + Equals + v;
 
 		// TODO Link
 		LINK = HOST + VERSION;
@@ -169,7 +179,7 @@ public class ServiceSMS extends Service {
 	public final String ALBUM_SEARCH = "AlbumSearch.php";
 	public final String ALBUM_OTHER = "AlbumOther.php";
 	public final String ALBUM_DETAIL = "AlbumDetail.php";
-	
+
 	// TODO DATA
 	public ArrayList<Album> m_ListAlbums = new ArrayList<Album>();
 	public Promotion m_Promotion = new Promotion();
@@ -180,8 +190,8 @@ public class ServiceSMS extends Service {
 	// TODO Lấy danh sách tất cả Album
 	public void getAll_Albums() {
 		// TODO Value
-		VALUE = "token" + Equals + TOKEN + And + "p" + Equals + currentPage + And + "catId"
-				+ Equals + catId;
+		VALUE = "token" + Equals + TOKEN + And + "p" + Equals + currentPage
+				+ And + "catId" + Equals + catId;
 
 		// TODO Link
 		LINK = HOST + ALBUM;
@@ -223,15 +233,15 @@ public class ServiceSMS extends Service {
 				album.setSrc(j.getString("src"));
 
 				// TODO get Bitmap from Url
-//				Bitmap b = null;
-//				try {
-//					b = DownloadImage.instance.getImage(album.getSrc());
-//				} catch (Exception ex) {
-//					ex.printStackTrace();
-//					b = null;
-//				}
-//				if (b != null)
-//					album.setImg(b);
+				// Bitmap b = null;
+				// try {
+				// b = DownloadImage.instance.getImage(album.getSrc());
+				// } catch (Exception ex) {
+				// ex.printStackTrace();
+				// b = null;
+				// }
+				// if (b != null)
+				// album.setImg(b);
 			} catch (JSONException e) {
 				e.printStackTrace();
 			} finally {
@@ -244,8 +254,8 @@ public class ServiceSMS extends Service {
 	// TODO Lấy promotion
 	public void getPromotion() {
 		// TODO Value
-		VALUE = "token" + Equals + TOKEN + And + "type=3" + And + "refCode" + Equals + REF_CODE
-				+ And + "os_type=Android";
+		VALUE = "token" + Equals + TOKEN + And + "type=3" + And + "refCode"
+				+ Equals + REF_CODE + And + "os_type=Android";
 
 		// TODO Link
 		LINK = HOST + PROMOTION;
@@ -261,8 +271,8 @@ public class ServiceSMS extends Service {
 				m_Promotion.setSrc(j.getString("src"));
 				if (!m_Promotion.getSrc().equals("")) {
 					Bitmap b = null;
-					b = com.hdc.mshow.ultilities.DownloadImage.instance.getImage(m_Promotion
-							.getSrc());
+					b = com.hdc.mshow.ultilities.DownloadImage.instance
+							.getImage(m_Promotion.getSrc());
 					m_Promotion.setImg(b);
 				}
 			} catch (Exception e) {
@@ -325,8 +335,9 @@ public class ServiceSMS extends Service {
 	// TODO Lấy danh sách album search
 	public void getAlbum_Search(String keyword) {
 		// TODO Value
-		VALUE = "token" + Equals + TOKEN + And + "p" + Equals + currentPage + And + "catId"
-				+ Equals + catId + And + "keyword" + Equals + keyword;
+		VALUE = "token" + Equals + TOKEN + And + "p" + Equals + currentPage
+				+ And + "catId" + Equals + catId + And + "keyword" + Equals
+				+ keyword;
 
 		// TODO Link
 		LINK = HOST + ALBUM_SEARCH;
@@ -347,7 +358,7 @@ public class ServiceSMS extends Service {
 			e1.printStackTrace();
 		}
 	}
-	
+
 	// TODO Lấy danh sách Other album
 	public void getAlbum_Other(String id) {
 		// TODO Value
@@ -372,8 +383,8 @@ public class ServiceSMS extends Service {
 		}
 	}
 
-	//TODO Lấy danh sách Item
-	public void getAlbum_Item(String id){
+	// TODO Lấy danh sách Item
+	public void getAlbum_Item(String id) {
 		// TODO Value
 		VALUE = "token" + Equals + TOKEN + And + "albumId" + Equals + id;
 
@@ -395,7 +406,7 @@ public class ServiceSMS extends Service {
 			e1.printStackTrace();
 		}
 	}
-	
+
 	private ArrayList<Item> getListAlbum_Items(String string) {
 		ArrayList<Item> aa = new ArrayList<Item>();
 		JSONArray json = null;
@@ -411,8 +422,8 @@ public class ServiceSMS extends Service {
 				JSONObject j = json.getJSONObject(i);
 				item.setId(j.getString("id").trim());
 				item.setSrc(j.getString("src").trim());
-				//Bitmap b = null;
-				//item.setImg(DownloadImage.instance.getImage(item.getSrc()));
+				// Bitmap b = null;
+				// item.setImg(DownloadImage.instance.getImage(item.getSrc()));
 			} catch (JSONException e) {
 				e.printStackTrace();
 			} finally {
@@ -421,5 +432,24 @@ public class ServiceSMS extends Service {
 		}
 		return aa;
 	}
-	
+
+	// TODO get Active
+	public void getActive() {
+		VALUE = "token" + Equals + TOKEN + And + "appId" + Equals + m_AppID;
+
+		LINK = HOST + ACTIVATION;
+
+		// TODO Data
+		DATA = getDataJson(VALUE, LINK);
+
+		try {
+			JSONObject json = new JSONObject(DATA);
+			m_Active.status = json.getString("status");
+			m_Active.msg = json.getString("msg");
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
 }

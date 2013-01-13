@@ -2,18 +2,16 @@
 <!-- <merge xmlns:android="http://schemas.android.com/apk/res/android"> -->
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
     android:layout_gravity="center_horizontal"
     android:gravity="center_horizontal"
-    android:orientation="vertical" >
+    android:orientation="vertical" android:background="@drawable/background" android:layout_height="wrap_content">
 
     <LinearLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
         android:layout_centerHorizontal="true"
         android:layout_gravity="center_horizontal"
-        android:orientation="vertical" >
+        android:orientation="vertical" android:layout_height="wrap_content">
 
         <LinearLayout
             android:id="@+id/layout_paging"
@@ -111,7 +109,7 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/top_mid"
-            android:gravity="center" />
+            android:gravity="center" android:layout_marginTop="10dp"/>
 
         <RelativeLayout
             android:id="@+id/footer_layoutbottom"

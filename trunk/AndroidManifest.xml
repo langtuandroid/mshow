@@ -29,6 +29,8 @@
         </activity>
         <activity android:name=".ListAlbumActivity" >
         </activity>
+        <activity android:name=".ListImageActivity" >
+        </activity>
         <activity android:name=".ListAlbumOtherActivity" >
         </activity>
         

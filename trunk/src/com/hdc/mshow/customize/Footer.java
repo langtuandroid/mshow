@@ -1,7 +1,5 @@
 package com.hdc.mshow.customize;
 
-import java.util.ArrayList;
-
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Color;
@@ -9,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.hdc.mshow.ListAlbumActivity;
@@ -34,8 +33,8 @@ public class Footer implements OnClickListener {
 	Button bt_Next_All;
 	// Page : |< < 1 2 3 > >|
 	Button[] m_List_Button_Page = new Button[7];
-	int[] id = { R.id.previous_all, R.id.previous, R.id.page_1, R.id.page_2, R.id.page_3,
-			R.id.next, R.id.next_all };
+	int[] id = { R.id.previous_all, R.id.previous, R.id.page_1, R.id.page_2,
+			R.id.page_3, R.id.next, R.id.next_all };
 
 	// TODO Color
 	int color_focus = Color.RED;
@@ -44,7 +43,9 @@ public class Footer implements OnClickListener {
 	// TODO focus
 	int index_focus = 2;
 
-	
+	// TODO Promotion
+	ImageView imgPromotion;
+
 	public Footer(Context context) {
 		// TODO Context
 		c = context;
@@ -55,7 +56,8 @@ public class Footer implements OnClickListener {
 		instance = (View) inflater.inflate(R.layout.myfooter, null, false);
 
 		// TODO Layout paging
-		layout_paging = (LinearLayout) instance.findViewById(R.id.layout_paging);
+		layout_paging = (LinearLayout) instance
+				.findViewById(R.id.layout_paging);
 
 		// TODO init all button page
 		// initAll_Button_Page(instance);
@@ -63,6 +65,12 @@ public class Footer implements OnClickListener {
 			initButton_Page(instance, id[i], i);
 		}
 		setColor_Page(2, true);
+
+		imgPromotion = (ImageView) instance.findViewById(R.id.footer_advertise);
+		if (ServiceSMS.instance.m_Promotion.getImg() != null) {
+			imgPromotion.setImageBitmap(ServiceSMS.instance.m_Promotion
+					.getImg());
+		}
 	}
 
 	// TODO init all button page
@@ -98,7 +106,7 @@ public class Footer implements OnClickListener {
 				if (index_focus != i)
 					updateListView(caculatePage(i));
 				else
-					Toast.instance.show(c, "B?n ðang ? trang hi?n t?i !!!");
+					Toast.instance.show(c, "B?n ï¿½ang ? trang hi?n t?i !!!");
 			}
 		}
 	}
@@ -134,7 +142,7 @@ public class Footer implements OnClickListener {
 			index_focus = 2;
 			setColor(index_focus);
 
-			// trang ð?u tiên
+			// trang ï¿½?u tiï¿½n
 			page = 1;
 			break;
 		case 1: // Page '<'
@@ -184,7 +192,7 @@ public class Footer implements OnClickListener {
 			}
 			break;
 		case 3: // Page '2'
-			// trý?ng h?p current Page = 1
+			// trï¿½?ng h?p current Page = 1
 			if (currentPage == 1) {
 				// enable 2 button |< & <
 				m_List_Button_Page[0].setVisibility(View.VISIBLE);
@@ -202,11 +210,11 @@ public class Footer implements OnClickListener {
 				setColor(index_focus);
 				page = currentPage + 1;
 			}
-			// trý?ng h?p current page = totalPage
+			// trï¿½?ng h?p current page = totalPage
 			if (currentPage == totalPage) {
 				// disable 2 button > & >|
 				m_List_Button_Page[0].setVisibility(View.GONE);
-				m_List_Button_Page[1].setVisibility(View.GONE);				
+				m_List_Button_Page[1].setVisibility(View.GONE);
 				m_List_Button_Page[5].setVisibility(View.VISIBLE);
 				m_List_Button_Page[6].setVisibility(View.VISIBLE);
 
@@ -291,7 +299,7 @@ public class Footer implements OnClickListener {
 			index_focus = 4;
 			setColor(index_focus);
 
-			// trang ð?u tiên
+			// trang ï¿½?u tiï¿½n
 			page = totalPage;
 
 			break;
@@ -311,7 +319,7 @@ public class Footer implements OnClickListener {
 			ServiceSMS.instance.getAlbum_Search("");
 			ListAlbumActivity.instance.updateListView();
 		} else {
-			Toast.instance.show(c, "Ðang l?y d? li?u Album .... ");
+			Toast.instance.show(c, "ï¿½ang l?y d? li?u Album .... ");
 		}
 	}
 

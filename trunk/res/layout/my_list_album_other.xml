@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout android:layout_width="match_parent"
+	android:layout_height="match_parent" xmlns:android="http://schemas.android.com/apk/res/android"
+	android:background="@drawable/background">
+
+	<!-- <include android:id="@+id/header_2" layout="@layout/myheader" /> -->
+
+	<ListView android:layout_width="match_parent"
+		android:layout_height="wrap_content" android:background="@drawable/background"
+		android:choiceMode="singleChoice" android:fadingEdge="none"
+		android:smoothScrollbar="true" android:id="@+id/list_album_other">
+	</ListView>
+</RelativeLayout>

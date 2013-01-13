@@ -4,7 +4,10 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -17,12 +20,11 @@ import com.hdc.mshow.dialog.Dialog_ListText;
 import com.hdc.mshow.model.IAction;
 import com.hdc.mshow.service.ServiceSMS;
 
-public class Header extends LinearLayout {
+public class Header_Other implements OnClickListener {
 
 	Context c;
 
-	// Layout root
-	int layout_root;
+	public View instance;
 
 	// TODO Control
 	Button bt_Search;
@@ -43,19 +45,20 @@ public class Header extends LinearLayout {
 	public LinearLayout layout_galary;
 	public LinearLayout layout_other_album;
 
-	public Header(Context context, int layout) {
-		super(context);
-		// TODO Auto-generated constructor stub
+	public Header_Other(Context context) {
+		// TODO Context
 		c = context;
-		layout_root = layout;
 	}
 
 	// TODO Init Layout
 	public void initLayout() {
-		LinearLayout v = (LinearLayout) ((Activity) c)
-				.findViewById(layout_root);
+		// View
+		LayoutInflater inflater = (LayoutInflater) ((Activity) c)
+				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+		instance = (View) inflater
+				.inflate(R.layout.myheader_other, null, false);
 		initDialog_Category();
-		initAll_Control(v);
+		initAll_Control(instance);
 	}
 
 	// TODO init all control
@@ -110,7 +113,11 @@ public class Header extends LinearLayout {
 						// lấy dữ liệu từ Search
 						ServiceSMS.instance.getAlbum_Search(txt_Search
 								.getText().toString());
-						ListAlbumActivity.instance.updateListView();
+						// ListAlbumActivity.instance.updateListView();
+
+						Intent intent = new Intent(c, ListAlbumActivity.class);
+						c.startActivity(intent);
+						((Activity) c).finish();
 					} else {
 						Toast.instance.show(c, "Đang lấy dữ liệu Album .... ");
 					}
@@ -127,27 +134,15 @@ public class Header extends LinearLayout {
 		}
 	}
 
-	// TODO set visible or gone Layout Galary other
-	public void setVisible_Layout_Galary(int visible) {
-		layout_galary.setVisibility(visible);
-	}
-
-	// TODO set visible or gone Layout other album
-	public void setVisible_Layout_Album_Other(int visible) {
-		layout_other_album.setVisibility(visible);
-	}
-
-	// // TODO init dialog
+	// TODO init dialog
 	// private void initDialog_Category() {
 	// // TODO Data
 	// int n = ServiceSMS.instance.m_ListCategory.size();
-	//
 	// String[] data = new String[n + 1];
 	// data[0] = "Tất cả";
 	// for (int i = 0; i < n; i++) {
 	// data[i + 1] = ServiceSMS.instance.m_ListCategory.get(i).getName();
 	// }
-	//
 	// // TODO Adapter
 	// ArrayAdapter<String> adapter = new ArrayAdapter<String>(c,
 	// android.R.layout.simple_list_item_1, data);
@@ -168,7 +163,12 @@ public class Header extends LinearLayout {
 	// // lấy dữ liệu từ Danh mục
 	// ServiceSMS.instance.catId = catId;
 	// ServiceSMS.instance.getAlbum_Search("");
-	// ListAlbumActivity.instance.updateListView();
+	//
+	// // ListAlbumActivity.instance.updateListView();
+	//
+	// Intent intent = new Intent(c, ListAlbumActivity.class);
+	// c.startActivity(intent);
+	// ((Activity) c).finish();
 	// } else {
 	// Toast.instance.show(c, "Đang lấy dữ liệu Album .... ");
 	// }
@@ -177,11 +177,9 @@ public class Header extends LinearLayout {
 	// alert = builder.create();
 	// }
 
-	// TODO init dialog
 	private void initDialog_Category() {
 		// TODO Data
 		int n = ServiceSMS.instance.m_ListCategory.size();
-
 		CharSequence[] data = new CharSequence[n + 1];
 		data[0] = "Tất cả";
 		for (int i = 0; i < n; i++) {
@@ -201,12 +199,24 @@ public class Header extends LinearLayout {
 					// lấy dữ liệu từ Danh mục
 					ServiceSMS.instance.catId = catId;
 					ServiceSMS.instance.getAlbum_Search("");
-					ListAlbumActivity.instance.updateListView();
+
+					// ListAlbumActivity.instance.updateListView();
+
+					Intent intent = new Intent(c, ListAlbumActivity.class);
+					c.startActivity(intent);
+					((Activity) c).finish();
 				} else {
 					Toast.instance.show(c, "Đang lấy dữ liệu Album .... ");
 				}
 			}
+
 		});
+	}
+
+	@Override
+	public void onClick(View v) {
+		// TODO Auto-generated method stub
+
 	}
 
 }
