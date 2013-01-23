@@ -52,7 +52,7 @@ public class ListAlbumActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.my_list_albums);
 
-		// AlertDialog_SMS.onDialog_SendSMS(this);
+		//AlertDialog_SMS.onDialog_SendSMS(this);
 
 		instance = this;
 
@@ -121,7 +121,7 @@ public class ListAlbumActivity extends Activity {
 						}
 
 						//status = 0 thì chuyền màn hình
-						if (ServiceSMS.instance.m_Active.getStatus().equals("0")) {
+						if (ServiceSMS.instance.m_Active.getStatus().equals("1")) {
 							try {
 								ServiceSMS.instance.getAlbum_Item(arrayitems.get((int) id).getId());
 								ServiceSMS.instance
@@ -152,6 +152,16 @@ public class ListAlbumActivity extends Activity {
 		});
 	}
 
+	public void setListItem(ArrayList<Album> aa){
+		arrayitems = aa;
+		adapter.clear();
+		for(int i = 0 ; i < arrayitems.size();i++){
+			adapter.add(arrayitems.get(i));
+		}
+		adapter.notifyDataSetChanged();
+	}
+	
+	
 	// TODO update Image
 	public void updateListView() {
 		new updateImage().execute();

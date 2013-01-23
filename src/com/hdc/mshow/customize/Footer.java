@@ -326,9 +326,10 @@ public class Footer implements OnClickListener {
 			ServiceSMS.instance.currentPage = page;
 			// ServiceSMS.instance.currentPage++;
 			ServiceSMS.instance.getAlbum_Search("");
+			ListAlbumActivity.instance.setListItem(ServiceSMS.instance.m_ListAlbums);
 			ListAlbumActivity.instance.updateListView();
 		} else {
-			Toast.instance.show(c, "�ang l?y d? li?u Album .... ");
+			Toast.instance.show(c, "Đang lấy dữ liệu Album .... ");
 		}
 	}
 
