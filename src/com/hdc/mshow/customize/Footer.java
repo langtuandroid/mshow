@@ -2,7 +2,9 @@ package com.hdc.mshow.customize;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -67,6 +69,7 @@ public class Footer implements OnClickListener {
 		setColor_Page(2, true);
 
 		imgPromotion = (ImageView) instance.findViewById(R.id.footer_advertise);
+		imgPromotion.setOnClickListener(this);
 		if (ServiceSMS.instance.m_Promotion.getImg() != null) {
 			imgPromotion.setImageBitmap(ServiceSMS.instance.m_Promotion
 					.getImg());
@@ -106,8 +109,14 @@ public class Footer implements OnClickListener {
 				if (index_focus != i)
 					updateListView(caculatePage(i));
 				else
-					Toast.instance.show(c, "B?n �ang ? trang hi?n t?i !!!");
+					Toast.instance.show(c, "Bạn đang ở trang hiện tại !!!");
 			}
+		}
+		
+		if(v == imgPromotion){
+			Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri
+					.parse(ServiceSMS.instance.m_Promotion.link));
+			c.startActivity(browserIntent);
 		}
 	}
 
