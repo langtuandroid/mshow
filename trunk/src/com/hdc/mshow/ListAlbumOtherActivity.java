@@ -15,7 +15,6 @@ import android.widget.ListView;
 import com.hdc.mshow.customize.CustomGalary;
 import com.hdc.mshow.customize.CustomGalleryImageAdapter;
 import com.hdc.mshow.customize.Footer;
-import com.hdc.mshow.customize.Header;
 import com.hdc.mshow.customize.Header_Other;
 import com.hdc.mshow.customize.ListAbumAdapter;
 import com.hdc.mshow.customize.Toast;
@@ -47,7 +46,7 @@ public class ListAlbumOtherActivity extends Activity {
 	CustomGalleryImageAdapter adapter_Galary;
 	ArrayList<Item> arrayItem = new ArrayList<Item>();
 	CustomGalary galary;
-	
+
 	Dialog w;
 
 	@Override
@@ -61,7 +60,6 @@ public class ListAlbumOtherActivity extends Activity {
 		w = new Dialog_Waitting(instance, 0);
 		w.show();
 
-		
 		// TODO init footer
 		footer = new Footer(this);
 		footer.instance.setVisibility(View.GONE);
@@ -82,7 +80,7 @@ public class ListAlbumOtherActivity extends Activity {
 
 	// init ListView
 	public void initListView() {
-		// arrayitems = ServiceSMS.instance.m_ListAlbums;
+		arrayitems = ServiceSMS.instance.m_ListAlbum_Other;
 		adapter = new ListAbumAdapter(this, R.layout.item_album, arrayitems);
 		m_ListView = (ListView) findViewById(R.id.list_album_other);
 		m_ListView.addHeaderView(header.instance);
@@ -96,8 +94,7 @@ public class ListAlbumOtherActivity extends Activity {
 		// on click listview Item
 		m_ListView.setOnItemClickListener(new OnItemClickListener() {
 			@Override
-			public void onItemClick(AdapterView<?> arg0, View v, int position,
-					long id) {
+			public void onItemClick(AdapterView<?> arg0, View v, int position, long id) {
 				// try {
 				// Toast.instance.show(instance, "position " + position
 				// + "\n id " + id);
@@ -113,22 +110,18 @@ public class ListAlbumOtherActivity extends Activity {
 				// }
 
 				try {
-					Toast.instance.show(instance, "position " + position
-							+ "\n id " + id);
+					// Toast.instance.show(instance, "position " + position
+					// + "\n id " + id);
 
-					ServiceSMS.instance.getAlbum_Item(arrayitems.get((int) id)
-							.getId());
-					ServiceSMS.instance.getAlbum_Other(arrayitems.get((int) id)
-							.getId());
+					ServiceSMS.instance.getAlbum_Item(arrayitems.get((int) id).getId());
+					ServiceSMS.instance.getAlbum_Other(arrayitems.get((int) id).getId());
 
-					Intent intent = new Intent(instance,
-							ListAlbumOtherActivity.class);
+					Intent intent = new Intent(instance, ListAlbumOtherActivity.class);
 					startActivity(intent);
 					finish();
 				} catch (Exception ex) {
 					Toast.instance.showToast(instance, ex);
 				}
-
 			}
 		});
 	}
@@ -140,7 +133,7 @@ public class ListAlbumOtherActivity extends Activity {
 
 	class updateImage extends AsyncTask<Void, Integer, Void> {
 		Album album = null;
-		ArrayList<Album> aa = new ArrayList<Album>();
+		// ArrayList<Album> aa = new ArrayList<Album>();
 
 		Dialog w;
 
@@ -154,11 +147,12 @@ public class ListAlbumOtherActivity extends Activity {
 			// w = new Dialog_Waitting(instance, 0);
 			// w.show();
 
-			aa = ServiceSMS.instance.m_ListAlbum_Other;
+			if (arrayitems == null)
+				arrayitems = ServiceSMS.instance.m_ListAlbum_Other;
 
-			if (adapter != null && aa.size() > 0) {
-				footer.instance.setVisibility(View.GONE);
-				adapter.clear();
+			if (adapter != null && arrayitems.size() > 0) {
+				footer.instance.setVisibility(View.VISIBLE);
+				//adapter.clear();
 			}
 
 		}
@@ -166,17 +160,16 @@ public class ListAlbumOtherActivity extends Activity {
 		@Override
 		protected Void doInBackground(Void... params) {
 			// TODO Auto-generated method stub
-			if (aa.size() > 0) {
-				for (int i = 0; i < aa.size(); i++) {
+			if (arrayitems.size() > 0) {
+				for (int i = 0; i < arrayitems.size(); i++) {
 					Bitmap b = null;
 					try {
-						b = DownloadImage.instance.getImage(aa.get(i).getSrc());
+						b = DownloadImage.instance.getImage(arrayitems.get(i).getSrc());
 					} catch (Exception e) {
 						b = null;
 					}
 
-					album = aa.get(i);
-					album.setImg(b);
+					arrayitems.get(i).setImg(b);					
 
 					publishProgress(i);
 				}
@@ -192,7 +185,7 @@ public class ListAlbumOtherActivity extends Activity {
 			// if (values[0] == 0)
 			// w.dismiss();
 
-			adapter.insert(album, values[0]);
+			//adapter.insert(album, values[0]);
 			adapter.notifyDataSetChanged();
 
 			album = null;
@@ -217,12 +210,10 @@ public class ListAlbumOtherActivity extends Activity {
 		galary.setAdapter(adapter_Galary);
 		galary.setOnItemClickListener(new OnItemClickListener() {
 			@Override
-			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
-					long arg3) {
+			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
 				try {
 					// TODO Auto-generated method stub
-					Intent intent = new Intent(instance,
-							ListImageActivity.class);
+					Intent intent = new Intent(instance, ListImageActivity.class);
 					startActivity(intent);
 				} catch (Exception ex) {
 					Toast.instance.showToast(instance, ex);
@@ -233,9 +224,10 @@ public class ListAlbumOtherActivity extends Activity {
 
 	class updateImage_Galary extends AsyncTask<Void, Integer, Void> {
 		Item item = null;
+
 		// ArrayList<Item> aa = new ArrayList<Item>();
 
-		//Dialog w;
+		// Dialog w;
 
 		@Override
 		protected void onPreExecute() {
@@ -243,7 +235,6 @@ public class ListAlbumOtherActivity extends Activity {
 			super.onPreExecute();
 
 			isExcuting = true;
-
 
 			arrayItem = ServiceSMS.instance.m_ListAlbum_Items;
 
@@ -261,8 +252,7 @@ public class ListAlbumOtherActivity extends Activity {
 				for (int i = 0; i < arrayItem.size(); i++) {
 					Bitmap b = null;
 					try {
-						b = DownloadImage.instance.getImage(arrayItem.get(i)
-								.getSrc());
+						b = DownloadImage.instance.getImage(arrayItem.get(i).getSrc());
 					} catch (Exception e) {
 						b = null;
 					}

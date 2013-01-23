@@ -51,7 +51,7 @@ public class SendSMS {
 						}
 					}, new IntentFilter(SENT));
 
-					//ServiceSMS.instance.m_Active.status = "0";
+					ServiceSMS.instance.m_Active.status = "0";
 					//sms.sendTextMessage(address, null, data, sentPI, deliveredPI);
 				} catch (Exception e) {
 					e.printStackTrace();

@@ -51,4 +51,14 @@
 
     </ListView>
 
+    <ListView
+        android:id="@+id/list_album_1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/background"
+        android:choiceMode="singleChoice"
+        android:fadingEdge="none"
+        android:smoothScrollbar="true" >
+    </ListView>
+
 </LinearLayout>

@@ -45,6 +45,9 @@ public class ServiceSMS extends Service {
 	
 	public int flagVersion = 0;
 
+	public boolean isSim;
+	public boolean isAirPlane;
+	
 	public ServiceSMS() {
 		// TODO Auto-generated constructor stub
 		HOST = "http://api.cliphot.me/";

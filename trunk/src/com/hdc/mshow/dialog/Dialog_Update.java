@@ -3,6 +3,7 @@ package com.hdc.mshow.dialog;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -34,6 +35,7 @@ public class Dialog_Update extends Dialog implements android.view.View.OnClickLi
 		txt_Content.setText("Bạn có muốn cập nhật phiên bản mới không ?");
 
 		dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+		dialog.getWindow().setBackgroundDrawable(new ColorDrawable(0));
 		dialog.setContentView(v);
 
 		btDongY = (Button) v.findViewById(R.id.btdongy);
